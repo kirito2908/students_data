@@ -1,0 +1,26 @@
+.loading{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-5%);
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+th, td {
+    padding: 5px 5px;
+}
+
+.FormContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.FormContainer h1 {
+    margin: 2rem;
+}
