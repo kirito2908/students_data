@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -6,10 +6,11 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { PacmanLoader } from "react-spinners";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { InsertData } from "./Store";
-import { useNavigate } from "react-router";
+import { DataEdit, InsertData, SingleData } from "./Store";
+import { useNavigate, useParams } from "react-router";
+import axios from "axios";
 
-const InsertForm = () => {
+const EditData = () => {
   const txtEmail = useRef();
   const txtPassword = useRef();
   const txtName = useRef();
@@ -24,11 +25,60 @@ const InsertForm = () => {
   const txtNope = useRef();
   const txtDivision = useRef();
 
+  const { id } = useParams();
+
   const navigate = useNavigate();
 
   const { loading, data, error } = useSelector((state) => state);
 
   const dispatch = useDispatch();
+
+  useEffect( () => {
+    var params = new FormData();
+
+    params.set("Id", id);
+
+    axios.post("http://localhost/students_data/student_single_api.php", params)
+    .then(function (response) {
+        txtName.current.value = response.data['Name'];
+        txtEmail.current.value = response.data['Email'];
+        txtPassword.current.value = response.data['Password'];
+
+        if (response.data['Gender'] == "Male"){
+            txtMale.current.checked = true;
+        }
+        if (response.data['Gender'] == "Female") {
+            txtFemale.current.checked = true;
+        }
+        if (response.data['Gender'] == "Not Saying") {
+            txtNope.current.checked = true;
+        } 
+
+        var hobbyArray = response.data['Hobby'].split(",");
+
+        for (var i=0; i < hobbyArray.length; i++) {
+            if (hobbyArray[i] == txtDancing.current.value) {
+                txtDancing.current.checked = true;
+            }
+            if (hobbyArray[i] == txtSinging.current.value) {
+                txtSinging.current.checked = true;
+            }
+            if (hobbyArray[i] == txtEating.current.value) {
+                txtEating.current.checked = true;
+            }
+            if (hobbyArray[i] == txtTraveling.current.value) {
+                txtTraveling.current.checked = true;
+            }
+            if (hobbyArray[i] == txtSleeping.current.value) {
+                txtSleeping.current.checked = true;
+            }
+            if (hobbyArray[i] == txtNothing.current.value) {
+                txtNothing.current.checked = true;
+            }
+        }
+
+    })
+  } )
 
   if (loading) {
     return (
@@ -51,6 +101,7 @@ const InsertForm = () => {
   }
 
   const handleSubmit = () => {
+
     var email = txtEmail.current.value;
     var name = txtName.current.value;
     var password = txtPassword.current.value;
@@ -91,6 +142,7 @@ const InsertForm = () => {
 
     var params = new FormData();
 
+    params.set("Id", id);
     params.set("Name", name);
     params.set("Email", email);
     params.set("Password", password);
@@ -98,7 +150,7 @@ const InsertForm = () => {
     params.set("Hobby", hobbyString);
     params.set("Division", division);
 
-    dispatch(InsertData(params));
+    dispatch(DataEdit(params));
 
     navigate("/");
 
@@ -177,4 +229,4 @@ const InsertForm = () => {
   );
 };
 
-export default InsertForm;
+export default EditData;

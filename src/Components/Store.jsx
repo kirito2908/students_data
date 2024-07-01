@@ -28,6 +28,26 @@ function StudentsData (state = initialState, action) {
                 ...state,
                 loading: false
             }
+            break;
+        case "DELETE_SUCCESS" :
+            return {
+                ...state,
+                loading: false
+            }
+            break;
+        case "DATA_SUCCESS" :
+            return {
+                ...state,
+                loading: false,
+                // data: action.payload
+            }
+            break;
+        case "EDIT_SUCCESS" :
+            return {
+                ...state,
+                loading: false
+            }
+            break; 
         case "FETCH_FAILED" :
             return {
                 ...state,
@@ -80,6 +100,46 @@ const InsertData = (params) => {
     }
 }
 
+const DeleteData = (params) => {
+    return async (dispatch) => {
+        dispatch ({
+            type: "FETCH_START"
+        })
+        try {
+            var response = await axios.post("http://localhost/students_data/student_delete.php", params);
+            dispatch ({
+                type: "DELETE_SUCCESS",
+                payload: response.data
+            })
+        } catch (error) {
+            dispatch ({
+                type: "FETCH_FAILED",
+                payload: response
+            })
+        }
+    }
+}
+
+const DataEdit = (params) => {
+    return async (dispatch) => {
+        dispatch ({
+            type: "FETCH_START"
+        })
+        try {
+            var response = await axios.post("http://localhost/students_data/student_edit.php", params);
+            dispatch ({
+                type: "EDIT_SUCCESS",
+                payload: response.data
+            })
+        } catch (error) {
+            dispatch ({
+                type: "FETCH_FAILED",
+                payload: response
+            })
+        }
+    }
+}
+
 const Store = createStore(StudentsData, applyMiddleware(thunk));
 
-export { Store, FetchData, InsertData }
+export { Store, FetchData, InsertData, DeleteData, DataEdit }
