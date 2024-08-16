@@ -1,0 +1,108 @@
+.loading{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-5%);
+}
+
+.theForm{
+    width: 70%;
+}
+
+.LoginForm {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+    font-weight: 600;
+}
+
+.loginDetails {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h3 {
+    text-align: center;
+}
+
+.FormContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.FormContainer h1 {
+    margin: 2rem;
+}
+
+.standards{
+    margin-top: 1rem;
+}
+
+.checks_radios {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1rem;
+}
+
+.allHobbies, .allGenders{
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.theGender, .theHobbies {
+    display: flex;
+    gap: 1rem;
+}
+
+.submitbtn{
+    text-align: center;
+    margin-top: 2rem;
+}
+
+ul {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    padding: 2rem 2rem;
+    margin: 0rem 2rem;
+}
+
+.options{
+    display: flex;
+    gap: 5rem;
+}
+
+.resetStuff {
+    display: flex;
+    gap: 2rem;
+    text-decoration: none;
+}
+
+.homeRoute, .insertRoute, .pass, .mobile {
+    text-decoration: none;
+    color: blue;
+    font-weight: 700;
+}
+
+.homeRoute:hover, .insertRoute:hover {
+    cursor: pointer;
+    color: rgb(22, 150, 224);
+    transition: 500ms;
+}
+
+.logoutBtn:hover {
+    cursor: pointer;
+    background-color: rgb(22, 150, 224);
+    transition: 500ms;
+}
+
+.logoutBtn {
+    background-color: blue;
+    color: white;
+    border-radius: 9999px;
+    padding: 5px 10px;
+}
